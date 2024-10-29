@@ -4,7 +4,7 @@ metadata:
   name: grafana
   namespace: grafna
   labels:
-    app: argocd
+    app: grafana
 spec:
   ports:
     - port: 80
