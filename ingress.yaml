@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: grafna
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    #alb.ingress.kubernetes.io/group.name: aa-external
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    #alb.ingress.kubernetes.io/ssl-redirect: "443"p-n
+    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:aortheast-2:{account_id}:certificate/{certificate_id}
+    external-dns.alpha.kubernetes.io/hostname: grafana.kjs-s.site
+spec:
+  ingressClassName: alb
+  rules:
+  - host: grafana.kjs-s.site
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 80
